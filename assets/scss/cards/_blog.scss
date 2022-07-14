@@ -1,0 +1,40 @@
+/*
+ * Blog card
+ */
+.blog-card {
+  .card {
+    &__media {
+      position: relative;
+      margin-bottom: 0.6rem;
+    }
+
+    &__copyright {
+      position: absolute;
+      left: -0.4rem;
+      bottom: 0.4rem;
+
+      font-family: "Arial";
+      transform-origin: 0 100%;
+      transform: rotate(-90deg);
+      text-transform: uppercase;
+      font-size: 80%;
+    }
+
+    &__title {
+      margin-bottom: 0.4rem;
+
+      font-size: 40px;
+      line-height: 1.2;
+    }
+
+    &__description {
+      font-family: "Arial";
+    }
+  }
+
+  &.card {
+    &__v {
+      width: 80%;
+    }
+  }
+}

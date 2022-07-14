@@ -1,0 +1,15 @@
+/*
+ * Footer
+ */
+.app-footer {
+  padding: 15vh 0 10vh 0;
+
+  .footer {
+    &__wrapper {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}

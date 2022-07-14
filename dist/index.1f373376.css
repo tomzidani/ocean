@@ -38,6 +38,18 @@ table {
   height: 100vh;
 }
 
+.app-home .home__blog .blog__list {
+  grid-gap: 2em 0;
+  grid-template-columns: 1fr 1fr;
+  display: grid;
+}
+
+.app-home .home__blog .blog__list .blog-card {
+  place-self: center;
+}
+
+
+
 
 
 /*# sourceMappingURL=index.1f373376.css.map */

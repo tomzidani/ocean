@@ -1,0 +1,16 @@
+/*
+ * Fonts
+ */
+
+// Helvetica
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("../fonts/helveticaneue/HelveticaNeue-MediumExt.woff") format("woff"),
+    url("../fonts/helveticaneue/HelveticaNeue-MediumExt.woff2") format("woff2");
+  font-weight: normal;
+}
+
+@mixin helveticaneue {
+  font-family: "Helvetica Neue";
+  font-weight: normal;
+}

@@ -1,0 +1,23 @@
+/*
+ * Global
+ */
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+html,
+body {
+  @include helveticaneue;
+  color: #333;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}

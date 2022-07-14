@@ -1,0 +1,21 @@
+/*
+ * Header
+ */
+.app-header {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
+  padding: 25px 0;
+
+  background: #fff;
+
+  z-index: 2;
+
+  .header {
+    &__logo {
+      font-size: 2rem;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+/*
+ * Home page
+ */
+.app-home {
+  padding-top: 150px;
+
+  .home {
+    &__blog {
+      .blog {
+        &__list {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-gap: 2em 0;
+        }
+
+        &-card {
+          place-self: center;
+        }
+      }
+    }
+  }
+}
