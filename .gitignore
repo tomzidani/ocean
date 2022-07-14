@@ -1,0 +1,8 @@
+# Parcel
+.parcel-cache
+
+# NPM / Yarn
+node_modules
+
+yarn.lock
+package-lock.json
