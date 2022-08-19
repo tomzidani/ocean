@@ -1,9 +1,13 @@
 {
+  "scripts": {
+    "start": "parcel index.html"
+  },
   "dependencies": {
     "three": "^0.142.0"
   },
   "devDependencies": {
-    "@parcel/transformer-glsl": "2.6.2",
-    "@parcel/transformer-sass": "2.6.2"
+    "@parcel/transformer-glsl": "^2.7.0",
+    "@parcel/transformer-sass": "^2.7.0",
+    "parcel": "^2.7.0"
   }
 }
