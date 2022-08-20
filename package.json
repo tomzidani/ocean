@@ -6,7 +6,7 @@
     "fontfaceobserver": "^2.3.0",
     "gsap": "^3.11.0",
     "imagesloaded": "^5.0.0",
-    "three": "^0.142.0"
+    "three": "^0.143.0"
   },
   "devDependencies": {
     "@parcel/transformer-glsl": "^2.7.0",

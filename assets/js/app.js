@@ -3,6 +3,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 
 import fragment from "./shaders/fragment.glsl"
 import vertex from "./shaders/vertex.glsl"
+import noise from "./shaders/noise.glsl"
 
 import oceanImg from "../img/ocean.jpg"
 import imagesLoaded from "imagesloaded"
@@ -251,6 +252,7 @@ export default class Sketch {
     // this.material.uniforms.time.value = this.time
 
     this.customPass.uniforms.scrollSpeed.value = this.scroll.speedTarget
+    this.customPass.uniforms.time.value = this.time
 
     this.materials.forEach((m) => {
       m.uniforms.time.value = this.time
