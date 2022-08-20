@@ -19,7 +19,7 @@ export default class Sketch {
     this.scene = new THREE.Scene()
 
     this.camera = new THREE.PerspectiveCamera(70, this.width / this.height, 100, 2000)
-    this.camera.position.z = 600
+    this.camera.position.z = 659
 
     this.camera.fov = 2 * Math.atan((this.height / 2 / 600) * (100 / Math.PI))
 
