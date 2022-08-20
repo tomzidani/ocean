@@ -20,7 +20,9 @@ export default class Sketch {
   constructor(opts) {
     this.time = 0
     this.container = opts.dom
+
     this.currentScroll = 0
+    this.previousScroll = -1
 
     this.width = this.container.offsetWidth
     this.height = this.container.offsetHeight
@@ -33,6 +35,7 @@ export default class Sketch {
     this.camera.fov = 2 * Math.atan((this.height / 2 / 600) * (100 / Math.PI))
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+    this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(this.width, this.height)
     this.container.appendChild(this.renderer.domElement)
 
@@ -179,7 +182,7 @@ export default class Sketch {
     this.imageStore = this.images.map((img) => {
       const bounds = img.getBoundingClientRect()
 
-      const geometry = new THREE.PlaneBufferGeometry(img.width, img.height, 10, 10)
+      const geometry = new THREE.PlaneBufferGeometry(1, 1, 10, 10)
 
       let image = new Image()
       image.src = img.src
@@ -207,6 +210,7 @@ export default class Sketch {
       material.uniforms.uImage.value = texture
 
       const mesh = new THREE.Mesh(geometry, material)
+      mesh.scale.set(bounds.width, bounds.height, 1)
 
       this.scene.add(mesh)
 
@@ -244,22 +248,23 @@ export default class Sketch {
     this.time += 0.05
 
     this.scroll.render()
+    this.previousScroll = this.currentScroll
     this.currentScroll = this.scroll.scrollToRender
-    this.setPosition()
-    // this.mesh.rotation.x = this.time / 2000
-    // this.mesh.rotation.y = this.time / 1000
 
-    // this.material.uniforms.time.value = this.time
+    if (Math.round(this.currentScroll) !== Math.round(this.previousScroll)) {
+      this.setPosition()
 
-    this.customPass.uniforms.scrollSpeed.value = this.scroll.speedTarget
-    this.customPass.uniforms.time.value = this.time
+      this.customPass.uniforms.scrollSpeed.value = this.scroll.speedTarget
+      this.customPass.uniforms.time.value = this.time
 
-    this.materials.forEach((m) => {
-      m.uniforms.time.value = this.time
-    })
+      this.materials.forEach((m) => {
+        m.uniforms.time.value = this.time
+      })
+
+      this.composer.render()
+    }
 
     this.renderer.render(this.scene, this.camera)
-    this.composer.render()
     window.requestAnimationFrame(this.render.bind(this))
   }
 }
