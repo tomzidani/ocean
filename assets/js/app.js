@@ -8,6 +8,7 @@ import oceanImg from "../img/ocean.jpg"
 import imagesLoaded from "imagesloaded"
 import FontFaceObserver from "fontfaceobserver"
 import Scroll from "./scroll"
+import gsap from "gsap"
 
 export default class Sketch {
   constructor(opts) {
@@ -51,11 +52,32 @@ export default class Sketch {
       this.addImages()
       this.setPosition()
 
+      this.mouseMovement()
       // this.addObjects()
       this.render()
 
       this.bindEvents()
     })
+  }
+
+  mouseMovement(e) {
+    window.addEventListener(
+      "mousemove",
+      (e) => {
+        this.mouse.x = (e.clientX / this.width) * 2 - 1
+        this.mouse.y = -(e.clientY / this.height) * 2 + 1
+
+        this.raycaster.setFromCamera(this.mouse, this.camera)
+
+        const intersects = this.raycaster.intersectObjects(this.scene.children)
+
+        if (intersects.length) {
+          let obj = intersects[0].object
+          obj.material.uniforms.hover.value = intersects[0].uv
+        }
+      },
+      false
+    )
   }
 
   bindEvents() {
@@ -82,17 +104,50 @@ export default class Sketch {
   }
 
   addImages() {
+    this.material = new THREE.ShaderMaterial({
+      uniforms: {
+        time: { value: 0 },
+        uImage: { value: 0 },
+        hover: { value: new THREE.Vector2(0.5, 0.5) },
+        hoverState: { value: 0 },
+        oceanTexture: { value: new THREE.TextureLoader().load(oceanImg) },
+      },
+      side: THREE.DoubleSide,
+      fragmentShader: fragment,
+      vertexShader: vertex,
+    })
+
+    this.materials = []
+
     this.imageStore = this.images.map((img) => {
       const bounds = img.getBoundingClientRect()
 
-      const geometry = new THREE.PlaneBufferGeometry(img.width, img.height, 1, 1)
+      const geometry = new THREE.PlaneBufferGeometry(img.width, img.height, 10, 10)
 
       let image = new Image()
       image.src = img.src
       let texture = new THREE.Texture(image)
       texture.needsUpdate = true
 
-      const material = new THREE.MeshBasicMaterial({ map: texture })
+      const material = this.material.clone()
+
+      img.addEventListener("mouseenter", () => {
+        gsap.to(material.uniforms.hoverState, {
+          duration: 1,
+          value: 1,
+        })
+      })
+
+      img.addEventListener("mouseout", () => {
+        gsap.to(material.uniforms.hoverState, {
+          duration: 1,
+          value: 0,
+        })
+      })
+
+      this.materials.push(material)
+
+      material.uniforms.uImage.value = texture
 
       const mesh = new THREE.Mesh(geometry, material)
 
@@ -138,6 +193,10 @@ export default class Sketch {
     // this.mesh.rotation.y = this.time / 1000
 
     // this.material.uniforms.time.value = this.time
+
+    this.materials.forEach((m) => {
+      m.uniforms.time.value = this.time
+    })
 
     this.renderer.render(this.scene, this.camera)
     window.requestAnimationFrame(this.render.bind(this))
