@@ -1,16 +1,22 @@
 {
+  "homepage": "https://tomzidani.github.io/ocean",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "build": "parcel build index.html --public-url ./",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "fontfaceobserver": "^2.3.0",
+    "gh-pages": "^4.0.0",
     "gsap": "^3.11.0",
     "imagesloaded": "^5.0.0",
     "three": "^0.143.0"
   },
   "devDependencies": {
+    "@parcel/packager-raw-url": "^2.7.0",
     "@parcel/transformer-glsl": "^2.7.0",
     "@parcel/transformer-sass": "^2.7.0",
+    "@parcel/transformer-webmanifest": "^2.7.0",
     "parcel": "^2.7.0"
   }
 }
