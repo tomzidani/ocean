@@ -3,6 +3,8 @@
     "start": "parcel index.html"
   },
   "dependencies": {
+    "fontfaceobserver": "^2.3.0",
+    "imagesloaded": "^5.0.0",
     "three": "^0.142.0"
   },
   "devDependencies": {
